@@ -46,3 +46,6 @@ docker-compose.yml
 *.pyc
 __pycache__
 redis-data
+
+# addition documents
+churn_prediction_project_guide.md
