@@ -6,3 +6,5 @@ matplotlib
 mlflow
 xgboost
 setuptools
+joblib
+python-dotenv
