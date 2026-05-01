@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: churn_prediction_package
+Version: 0.0.1
+Summary: A Python package
+Author: Yash Chillal
+Author-email: chillalyash2005@gmail.com
+Requires-Dist: scikit-learn
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: xgboost
+Requires-Dist: mlflow
+Dynamic: author
+Dynamic: author-email
+Dynamic: requires-dist
+Dynamic: summary
