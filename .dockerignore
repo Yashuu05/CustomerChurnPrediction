@@ -1,0 +1,48 @@
+# Git
+.git
+.gitignore
+
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+churn/
+
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test / coverage reports
+.tox/
+.nosepytests
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Sensitive information
+.env
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker specific
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+.env
+*.pyc
+__pycache__
+redis-data
