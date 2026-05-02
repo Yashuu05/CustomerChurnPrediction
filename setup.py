@@ -14,6 +14,8 @@ setup(
         'matplotlib',
         'seaborn',
         'xgboost',
-        'mlflow'
+        'mlflow',
+        'python-dotenv',
+        'pymongo'
     ],
 )

@@ -6,7 +6,8 @@ from datetime import datetime
 LOG_FILE = f"{datetime.now().strftime('%m_%d_%Y_%H_%M_%S')}.log"
 
 # Create a 'logs' directory in the root of the project
-logs_path = os.path.join(os.getcwd(), "logs", LOG_FILE)
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+logs_path = os.path.join(project_root, "logs", LOG_FILE)
 os.makedirs(os.path.dirname(logs_path), exist_ok=True)
 
 # Configure the logging
