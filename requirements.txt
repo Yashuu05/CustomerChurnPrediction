@@ -8,3 +8,4 @@ xgboost
 setuptools
 joblib
 python-dotenv
+pymongo
