@@ -80,3 +80,10 @@ def separate_cols_type(data) -> tuple:
         else:
             numerical_cols.append(cols)
     return categorical_cols, numerical_cols
+
+def prepare_X_y(data, target: str):
+
+    X = data.drop([target, "customerID"], axis=1)
+    y = data[target]
+
+    return X, y
