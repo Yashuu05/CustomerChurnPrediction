@@ -1,0 +1,14 @@
+{
+  "algorithms" :{
+    "linear": "logistic_regression",
+    "bagging": "random_forest",
+    "boosting": ["xgboost","lightgbm"]
+},
+  "metrics":[
+    "precision",
+    "recall",
+    "f1_score",
+    "accuracy",
+    "confusion_matrix"
+  ]
+}

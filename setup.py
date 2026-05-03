@@ -16,6 +16,7 @@ setup(
         'xgboost',
         'mlflow',
         'python-dotenv',
-        'pymongo'
+        'pymongo',
+        'lightgbm'
     ],
 )
