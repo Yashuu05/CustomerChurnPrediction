@@ -3,13 +3,17 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
+from src.logger import logging
 
 # load dataset (full – use only for small files)
 def load_dataset(file_path):
     try:
+        logging.info(f"{file_path} successfully loaded")
         return pd.read_csv(file_path)
     except Exception as e:
+
         print(f"Error! {str(e)}")
+        logging.error(f"{str(e)}")
         return None
 
 # load a random sample from a large CSV without reading it all into memory
@@ -46,8 +50,10 @@ def load_dataset_sample(file_path, sample_size=100_000, random_state=42, chunksi
 def save_dataset(data, file_path):
     try:
         data.to_csv(file_path, index=False)
+        logging.info(f"data saved in {file_path}.")
         print("Successful! Dataset saved.")
     except Exception as e:
+        logging.error(f"{str(e)}")
         print(f"Error! {str(e)}")
         return None
 
