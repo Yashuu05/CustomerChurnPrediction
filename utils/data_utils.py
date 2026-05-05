@@ -67,6 +67,7 @@ def split_dataset(randomState: int, testSize: float, X, y):
         return X_train, X_test, y_train, y_test
 
     except Exception as e:
+        logging.error(f"{str(e)}")
         print(f"Error! {str(e)}")
 
 # find categorical and numerical values
@@ -81,9 +82,14 @@ def separate_cols_type(data) -> tuple:
             numerical_cols.append(cols)
     return categorical_cols, numerical_cols
 
-def prepare_X_y(data, target: str):
+def prepare_X_y(data, cols_to_drop: list, target: str) -> tuple:
 
-    X = data.drop([target, "customerID"], axis=1)
+    # add target in cols_to_drop if not specified by user
+    if target not in cols_to_drop:
+        cols_to_drop.append(target)
+    # labels
+    X = data.drop(cols_to_drop, axis=1)
+    # target feature
     y = data[target]
 
     return X, y
