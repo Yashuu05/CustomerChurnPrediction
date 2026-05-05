@@ -10,3 +10,4 @@ setuptools
 joblib
 python-dotenv
 pymongo
+imblearn

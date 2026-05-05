@@ -17,6 +17,7 @@ setup(
         'mlflow',
         'python-dotenv',
         'pymongo',
-        'lightgbm'
+        'lightgbm',
+        'imblearn'
     ],
 )

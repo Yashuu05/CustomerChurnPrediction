@@ -9,6 +9,7 @@ from configs.paths import DATA_PATH
 from utils import data_utils
 from src.logger import logging
 
+SAVE_FILE_PATH = os.path.join(project_root, "data", "processed", "cleaned_data.csv")
 # load dataset using raw string for path
 df = data_utils.load_dataset(file_path=DATA_PATH)
 
@@ -18,7 +19,9 @@ else:
     # convert the `TotalCharges` into float
     df['TotalCharges'] = df['TotalCharges'].replace(" ", np.nan)
     df['TotalCharges'] = df['TotalCharges'].astype(float)
+    df['InternetService'] = df['InternetService'].replace("No", "No internet service")  
     print(f"TotalCharges dtype: {df['TotalCharges'].dtypes}")
+    print(f"\nunique values of 'InternetService': {df['InternetService'].unique()}")
 
     cat_cols, num_cols = data_utils.separate_cols_type(data=df)
 
@@ -43,6 +46,11 @@ else:
     if null_count == 0:
         logging.info("Dataset successfully processed and cleaned.")
         print("\nSuccess: Dataset is clean.")
+        os.makedirs(os.path.dirname(SAVE_FILE_PATH), exist_ok=True)
+        data_utils.save_dataset(data=df, file_path=SAVE_FILE_PATH)
+        print("saving cleaned data...")
+        logging.info(f"Saved Cleaned data in {SAVE_FILE_PATH}")
+
     else: 
         logging.warning(f"Data cleaning incomplete. Remaining nulls: {null_count}")
         print(f"\nWarning: {null_count} null values remaining.")
