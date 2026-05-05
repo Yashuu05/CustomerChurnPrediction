@@ -28,7 +28,7 @@ def evalulate_model(y_test, y_pred):
     Output: list of recall, precision, f1 socre, accuracy, roc_auc_score and classification report
     """
     
-    from sklearn.metrics import  accuracy_score, precision_score, recall_score, f1_score
+    from sklearn.metrics import  accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
     try:
         # 1
         recall = recall_score(y_test, y_pred, average="weighted")
@@ -38,8 +38,10 @@ def evalulate_model(y_test, y_pred):
         f1 = f1_score(y_test, y_pred, average="weighted")
         # 4
         acc = accuracy_score(y_test, y_pred)
+        # 5
+        roc = roc_auc_score(y_test, y_pred, average='weighted')
 
-        results = [recall, precision, f1, acc]
+        results = [recall, precision, f1, acc, roc]
         
         return results
     
