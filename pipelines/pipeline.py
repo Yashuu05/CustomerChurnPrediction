@@ -17,7 +17,7 @@ def build_pipeline(categorical_cols, numerical_cols):
 
     cat_pipeline = Pipeline(steps=[
         ('imputer', SimpleImputer(strategy="most_frequent")),
-        ('encoder', OneHotEncoder(sparse_output=False, handle_unknown='ignore'))
+        ('encoder', OneHotEncoder(sparse_output=False, handle_unknown='ignore', drop='first'))
     ])
 
     full_pipeline = ColumnTransformer(transformers=[

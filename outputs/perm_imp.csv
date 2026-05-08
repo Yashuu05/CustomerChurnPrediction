@@ -1,0 +1,46 @@
+Feature,Importance,OriginalFeature
+cat__Contract_Month-to-month,0.42687,Contract
+cat__InternetService_Fiber optic,0.174917,InternetService
+cat__OnlineSecurity_No,0.03433,OnlineSecurity
+cat__Contract_Two year,0.031609,Contract
+cat__PhoneService_No,0.024113,PhoneService
+cat__StreamingMovies_Yes,0.022608,StreamingMovies
+cat__TechSupport_No,0.020701,TechSupport
+cat__Contract_One year,0.018461,Contract
+num__tenure,0.016337,tenure
+cat__OnlineBackup_No,0.014211,OnlineBackup
+cat__StreamingMovies_No,0.01271,StreamingMovies
+cat__DeviceProtection_Yes,0.012155,DeviceProtection
+cat__PaymentMethod_Electronic check,0.011823,PaymentMethod
+cat__MultipleLines_No,0.011771,MultipleLines
+remainder__SeniorCitizen,0.011582,SeniorCitizen
+num__MonthlyCharges,0.011384,MonthlyCharges
+num__TotalCharges,0.01136,TotalCharges
+cat__PaperlessBilling_No,0.010709,PaperlessBilling
+cat__MultipleLines_Yes,0.010405,MultipleLines
+cat__PaymentMethod_Bank transfer (automatic),0.010156,PaymentMethod
+cat__StreamingTV_Yes,0.010135,StreamingTV
+cat__PaymentMethod_Credit card (automatic),0.009606,PaymentMethod
+cat__Dependents_No,0.009527,Dependents
+cat__gender_Female,0.009251,gender
+cat__OnlineBackup_Yes,0.009027,OnlineBackup
+cat__PaymentMethod_Mailed check,0.009015,PaymentMethod
+cat__DeviceProtection_No,0.008548,DeviceProtection
+cat__Partner_No,0.008452,Partner
+cat__StreamingTV_No,0.008172,StreamingTV
+cat__InternetService_DSL,0.007369,InternetService
+cat__TechSupport_Yes,0.006845,TechSupport
+cat__OnlineSecurity_Yes,0.005843,OnlineSecurity
+cat__MultipleLines_No phone service,0.0,MultipleLines
+cat__gender_Male,0.0,gender
+cat__PhoneService_Yes,0.0,PhoneService
+cat__Partner_Yes,0.0,Partner
+cat__Dependents_Yes,0.0,Dependents
+cat__TechSupport_No internet service,0.0,TechSupport
+cat__DeviceProtection_No internet service,0.0,DeviceProtection
+cat__OnlineBackup_No internet service,0.0,OnlineBackup
+cat__OnlineSecurity_No internet service,0.0,OnlineSecurity
+cat__InternetService_No,0.0,InternetService
+cat__StreamingTV_No internet service,0.0,StreamingTV
+cat__StreamingMovies_No internet service,0.0,StreamingMovies
+cat__PaperlessBilling_Yes,0.0,PaperlessBilling
