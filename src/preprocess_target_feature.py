@@ -8,7 +8,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-from configs.paths import DATA_PATH, Y_TEST_SAVE_PATH, Y_TRAIN_SAVE_PATH
+from configs.paths import CLEANED_DATA_PATH, Y_TEST_SAVE_PATH, Y_TRAIN_SAVE_PATH
 from utils.data_utils import load_dataset, save_dataset, prepare_X_y, split_dataset
 from sklearn.preprocessing import LabelEncoder
 from src.logger import logging
@@ -17,11 +17,11 @@ from src.logger import logging
 # 1: load dataset 
 logging.info("loading dataset")
 print("=========== Preprocessing Initialized =============")
-df = load_dataset(file_path=DATA_PATH)
+df = load_dataset(file_path=CLEANED_DATA_PATH)
 
 if df is not None:
     logging.info("preparing labels and target feature")
-    X, y = prepare_X_y(data=df, target="Churn")
+    X, y = prepare_X_y(data=df, cols_to_drop=['customerID'], target="Churn")
     
     logging.info("splitting dataset...")
     _, _, y_train, y_test = split_dataset(randomState=42, testSize=0.20, X=X, y=y)

@@ -9,10 +9,9 @@ import pandas as pd
 from src.logger import logging
 from utils.data_utils import load_dataset, save_dataset, split_dataset, prepare_X_y
 
-DATA_PATH = os.path.join(project_root, "data", "processed", "cleaned_data.csv")
+from configs.paths import CLEANED_DATA_PATH, Y_TRAIN_SAVE_PATH
 SAVE_X = os.path.join(project_root, "data", "processed", "X_train_res.csv")
 SAVE_Y = os.path.join(project_root, "data", "processed", "y_train_res.csv")
-Y_PROCESSED_PATH = os.path.join(project_root, "data", "processed", "y_train_processed.csv")
 
 def perform_smote(Xtrain, Ytrain):
     """
@@ -40,11 +39,11 @@ if __name__ == "__main__":
     print("Intialized ")
     logging.info("Initialised SMOTE")
     logging.info("loading dataset")
-    df = load_dataset(file_path=DATA_PATH)
-    y_train = load_dataset(file_path=Y_PROCESSED_PATH)
+    df = load_dataset(file_path=CLEANED_DATA_PATH)
+    y_train_processed = load_dataset(file_path=Y_TRAIN_SAVE_PATH)
     
     if df is not None:
-        logging.info(f"{DATA_PATH} Dataset Splitting")
+        logging.info(f"{CLEANED_DATA_PATH} Dataset Splitting")
         X, y = prepare_X_y(data=df, cols_to_drop=['Churn', 'customerID'], target="Churn")
         
         logging.info("Encoding categorical variables for X_train")
@@ -53,8 +52,8 @@ if __name__ == "__main__":
         X_train, _, _, _ = split_dataset(randomState=42, testSize=0.20, X=X, y=y)
 
         logging.info("Performing SMOTE")
-        # Flatten y_train to 1D for SMOTE
-        y_train_flat = y_train.values.ravel()
+        # Flatten y_train_processed to 1D for SMOTE
+        y_train_flat = y_train_processed.values.ravel()
         X_train_res, y_train_res = perform_smote(Xtrain=X_train, Ytrain=y_train_flat)
 
         logging.info("SMOTE successfull. Saving balanced data.")
