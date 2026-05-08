@@ -1,3 +1,7 @@
+"""
+implementing SMOTE on imbalanced cleaned dataset
+"""
+
 import os
 import sys
 # Add project root to path
@@ -40,27 +44,42 @@ if __name__ == "__main__":
     logging.info("Initialised SMOTE")
     logging.info("loading dataset")
     df = load_dataset(file_path=CLEANED_DATA_PATH)
-    y_train_processed = load_dataset(file_path=Y_TRAIN_SAVE_PATH)
     
     if df is not None:
         logging.info(f"{CLEANED_DATA_PATH} Dataset Splitting")
-        X, y = prepare_X_y(data=df, cols_to_drop=['Churn', 'customerID'], target="Churn")
+        X, y = prepare_X_y(data=df, cols_to_drop=['customerID'], target="Churn")
         
-        logging.info("Encoding categorical variables for X_train")
-        X = pd.get_dummies(X, drop_first=True)
+        logging.info("Encoding categorical variables for the entire dataset")
+        X_encoded = pd.get_dummies(X, drop_first=True)
         
-        X_train, _, _, _ = split_dataset(randomState=42, testSize=0.20, X=X, y=y)
-
-        logging.info("Performing SMOTE")
-        # Flatten y_train_processed to 1D for SMOTE
-        y_train_flat = y_train_processed.values.ravel()
-        X_train_res, y_train_res = perform_smote(Xtrain=X_train, Ytrain=y_train_flat)
+        # Split encoded data
+        X_train_encoded, X_test_encoded, y_train, y_test = split_dataset(randomState=42, testSize=0.20, X=X_encoded, y=y)
+        
+        from sklearn.preprocessing import LabelEncoder
+        le = LabelEncoder()
+        y_train_encoded = le.fit_transform(y_train)
+        
+        logging.info("Performing SMOTE on training set")
+        X_train_res, y_train_res_encoded = perform_smote(Xtrain=X_train_encoded, Ytrain=y_train_encoded)
+        
+        # Decode target back to strings
+        y_train_res = le.inverse_transform(y_train_res_encoded)
 
         logging.info("SMOTE successfull. Saving balanced data.")
-        os.makedirs(os.path.dirname(SAVE_X), exist_ok=True)
-        save_dataset(data=X_train_res, file_path=SAVE_X)
-        os.makedirs(os.path.dirname(SAVE_Y), exist_ok=True)
-        save_dataset(data=pd.Series(y_train_res, name="Churn"), file_path=SAVE_Y)
+        
+        # Paths for new files
+        X_TRAIN_RES_PATH = os.path.join(project_root, "data", "processed", "X_train_res.csv")
+        Y_TRAIN_RES_PATH = os.path.join(project_root, "data", "processed", "y_train_res.csv")
+        X_TEST_PATH = os.path.join(project_root, "data", "processed", "X_test.csv")
+        Y_TEST_PATH = os.path.join(project_root, "data", "processed", "y_test.csv")
+        
+        os.makedirs(os.path.dirname(X_TRAIN_RES_PATH), exist_ok=True)
+        save_dataset(data=X_train_res, file_path=X_TRAIN_RES_PATH)
+        save_dataset(data=pd.Series(y_train_res, name="Churn"), file_path=Y_TRAIN_RES_PATH)
+        
+        # Save X_test as encoded as well to match X_train columns
+        save_dataset(data=X_test_encoded, file_path=X_TEST_PATH)
+        save_dataset(data=pd.Series(y_test, name="Churn"), file_path=Y_TEST_PATH)
         
         logging.info("save successfull.")
         print("Terminated")
