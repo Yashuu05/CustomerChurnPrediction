@@ -7,8 +7,9 @@ def build_full_pipeline(categorical_cols: list, numerical_cols: list) -> dict:
     """
     Builds a dictionary of RandomizedSearchCV objects for each model.
     """
-    # Fix the file path and load hyperparameters correctly
-    hyperparams_path = os.path.join('configs', 'hyperparameters.json')
+    # Use absolute path relative to project root
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    hyperparams_path = os.path.join(project_root, 'configs', 'hyperparameters.json')
     with open(hyperparams_path, 'r') as file:
         hyperparams_data = json.load(file)
 
