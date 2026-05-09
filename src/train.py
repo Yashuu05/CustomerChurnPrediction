@@ -34,6 +34,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 from pipelines import full_pipeline
+import mlflow
 
 def load_resources() -> tuple:
     """
@@ -60,6 +61,7 @@ def load_resources() -> tuple:
         return None
 
 if __name__ == "__main__" : 
+    mlflow.autolog()
     print("=============== Initialized Training =====================")
     print("\nLoading resources...")
     X_train, X_test, y_train, y_test, grid_pipelines = load_resources()

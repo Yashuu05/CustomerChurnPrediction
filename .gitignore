@@ -156,7 +156,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+mlruns/
+src/mlflow.db
 # Spyder project settings
 .spyderproject
 .spyproject
