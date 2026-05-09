@@ -128,8 +128,8 @@ if __name__ == "__main__" :
         
         # Save performance metrics to DataFrame
         performance_df = pd.DataFrame(performance_metrics)
-        performance_df.to_csv(os.path.join(project_root, "outputs", "performance_record.csv"), index=False)
-        print("\nPerformance record saved to outputs/performance_record.csv")
+        performance_df.to_csv(os.path.join(project_root, "outputs", "performance_record_1.csv"), index=False)
+        print("\nPerformance record saved to outputs/performance_record_1.csv")
 
         # Create comparison bar graph
         plt.figure(figsize=(12, 8))
@@ -139,9 +139,9 @@ if __name__ == "__main__" :
         plt.ylim(0, 1)
         plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         plt.tight_layout()
-        plt.savefig(os.path.join(project_root, "outputs", "model_comparison.png"))
+        plt.savefig(os.path.join(project_root, "outputs", "model_comparison_1.png"))
         plt.close()
-        print("Comparison bar graph saved to outputs/model_comparison.png")
+        print("Comparison bar graph saved to outputs/model_comparison_1.png")
 
         # Save the best model
         if best_model is not None:

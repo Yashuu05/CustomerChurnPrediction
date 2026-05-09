@@ -2,6 +2,22 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
+from sklearn.base import BaseEstimator, TransformerMixin
+
+class FeatureSelector(BaseEstimator, TransformerMixin):
+    """
+    Custom transformer to drop specified features from a DataFrame.
+    """
+    def __init__(self, feature_names):
+        self.feature_names = feature_names
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, X):
+        if hasattr(X, 'drop'):
+            return X.drop(columns=self.feature_names, errors='ignore')
+        return X
 
 def build_pipeline(categorical_cols, numerical_cols):
 
@@ -24,5 +40,8 @@ def build_pipeline(categorical_cols, numerical_cols):
         ('cat', cat_pipeline, categorical_cols),
         ('num', num_pipeline, numerical_cols)
     ])
+
+    # Set output to pandas to preserve column names for the next steps
+    full_pipeline.set_output(transform="pandas")
 
     return full_pipeline
