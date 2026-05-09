@@ -32,7 +32,7 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+from sklearn.metrics import confusion_matrix
 from pipelines import full_pipeline
 
 def load_resources() -> tuple:
@@ -42,15 +42,14 @@ def load_resources() -> tuple:
     Output: X_train, y_train, X_test, y_test, model_pipeline
     """
     try:
-        # load encoded labels
-        y_train = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "y_train_processed.csv"))
-        y_test = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "y_test_processed.csv"))
-        # X_train
-        X_train = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "X_train_res.csv"))
-        # X_test (Load the pre-encoded test set)
-        X_test = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "X_test.csv"))
+        # load X
+        X = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "X_res.csv"))
+        # load y
+        y = data_utils.load_dataset(file_path=os.path.join(project_root, "data", "processed", "y_res.csv"))
+        # split into train and test
+        X_train, X_test, y_train, y_test = data_utils.split_dataset(randomState=42, testSize=0.20, X=X, y=y)
         # pipeline
-        cat_cols, num_cols = data_utils.separate_cols_type(data=X_train)
+        cat_cols, num_cols = data_utils.separate_cols_type(data=X)
         grid_pipelines = full_pipeline.build_full_pipeline(categorical_cols=cat_cols, numerical_cols=num_cols)
     
         return X_train, X_test, y_train, y_test, grid_pipelines
@@ -81,8 +80,8 @@ if __name__ == "__main__" :
             print(f"\nTraining {model_name}...")
             logging.info(f"Fitting {model_name}")
             
-            # Flatten y_train for fitting
-            grid_search.fit(X_train, y_train.values.ravel())
+            # Fit model
+            grid_search.fit(X_train, y_train)
             
             # Get best estimator and params
             model = grid_search.best_estimator_
