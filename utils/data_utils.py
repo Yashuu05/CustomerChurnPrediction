@@ -51,7 +51,7 @@ def save_dataset(data, file_path):
     try:
         data.to_csv(file_path, index=False)
         logging.info(f"data saved in {file_path}.")
-        print("Successful! Dataset saved.")
+        print(f"Successful! Dataset saved to {file_path}")
     except Exception as e:
         logging.error(f"{str(e)}")
         print(f"Error! {str(e)}")
