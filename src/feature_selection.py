@@ -6,7 +6,7 @@ project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 from src.logger import logging
-from utils.data_utils import save_dataset
+from utils.data_utils import save_dataset, load_dataset
 SAVE_FILE_PATH = os.path.join(project_root, "outputs", "perm_imp.csv")
 
 def get_low_importance_features(importance_df, threshold=0.0):
@@ -42,104 +42,7 @@ def suggest_original_feature_drops(importance_df):
     return suggested_drops
 
 if __name__ == "__main__":
-    # Example usage (simulated data)
-    data = {
-        'Feature': [
-            "cat__Contract_Month-to-month",
-            "cat__InternetService_Fiber optic",	
-            "cat__OnlineSecurity_No",	
-            "cat__Contract_Two year",	
-            "cat__PhoneService_No",
-            "cat__StreamingMovies_Yes",	
-            "cat__TechSupport_No",	
-            "cat__Contract_One year",	
-            "num__tenure",  
-            "cat__OnlineBackup_No",	
-            "cat__StreamingMovies_No",	
-            "cat__DeviceProtection_Yes",	
-            "cat__PaymentMethod_Electronic check",
-            "cat__MultipleLines_No",	
-            "remainder__SeniorCitizen",	
-            "num__MonthlyCharges",	
-            "num__TotalCharges",	
-            "cat__PaperlessBilling_No",	
-            "cat__MultipleLines_Yes",
-            "cat__PaymentMethod_Bank transfer (automatic)",
-            "cat__StreamingTV_Yes",	
-            "cat__PaymentMethod_Credit card (automatic)",
-            "cat__Dependents_No",
-            "cat__gender_Female",	
-            "cat__OnlineBackup_Yes",
-            "cat__PaymentMethod_Mailed check",	
-            "cat__DeviceProtection_No",
-            "cat__Partner_No",
-            "cat__StreamingTV_No",	
-            "cat__InternetService_DSL",	
-            "cat__TechSupport_Yes",	
-            "cat__OnlineSecurity_Yes",	
-            "cat__MultipleLines_No phone service",	
-            "cat__gender_Male",	
-            "cat__PhoneService_Yes",
-            "cat__Partner_Yes",	
-            "cat__Dependents_Yes",	
-            "cat__TechSupport_No internet service",	
-            "cat__DeviceProtection_No internet service",	
-            "cat__OnlineBackup_No internet service",	
-            "cat__OnlineSecurity_No internet service",	
-            "cat__InternetService_No",	
-            "cat__StreamingTV_No internet service",	
-            "cat__StreamingMovies_No internet service",	
-            "cat__PaperlessBilling_Yes",	
-        ],
-        'Importance': [
-            0.426870,
-            0.174917,
-            0.034330,
-            0.031609,
-            0.024113,
-            0.022608,
-            0.020701,
-            0.018461,
-            0.016337,
-            0.014211,
-            0.012710,
-            0.012155,
-            0.011823,
-            0.011771,
-            0.011582,
-            0.011384,
-            0.011360,
-            0.010709,
-            0.010405,
-            0.010156,
-            0.010135,
-            0.009606,
-            0.009527,
-            0.009251,
-            0.009027,
-            0.009015,
-            0.008548,
-            0.008452,
-            0.008172,
-            0.007369,
-            0.006845,
-            0.005843,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000,
-            0.000000
-        ]
-    }
-    df = pd.DataFrame(data)
+    df = load_dataset(file_path=os.path.join(project_root, "outputs", "feature_importances.csv"))
     print("features with low importance:")
     result = get_low_importance_features(importance_df=df, threshold=0.005)
     print(result)
@@ -147,11 +50,6 @@ if __name__ == "__main__":
     print("\nSuggested Drops")
     suggested_drops = suggest_original_feature_drops(importance_df=df)
     print(suggested_drops)
-    
-    # Save the dataframe
-    #os.makedirs(os.path.dirname(SAVE_FILE_PATH), exist_ok=True)
-    #save_dataset(data=df, file_path=SAVE_FILE_PATH)
-    #logging.info(f"Saved permutation importance to {SAVE_FILE_PATH}")
     
     # Save features with low importance in congig/
     CONFIG_PATH = os.path.join(project_root, "configs", "suggested_drops.json")
