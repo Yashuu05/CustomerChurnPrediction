@@ -18,6 +18,8 @@ setup(
         'python-dotenv',
         'pymongo',
         'lightgbm',
-        'imblearn'
+        'imblearn',
+        'flask',
+        'shap'
     ],
 )
