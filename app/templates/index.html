@@ -1,11 +1,237 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="static/index.css"> 
-    <title>
-        Customer Churn Prediction
-    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChurnGuard AI | Enterprise Prediction Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <h1 style="color: tomato; text-align: center; font-size: 28px;"> Hello World </h1>
+    <div class="app-container">
+        <header>
+            <div class="logo-section">
+                <div class="logo-icon"></div>
+                <span class="logo-text">ChurnGuard AI</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">New Prediction</a></li>
+                    <li><a href="#">Model Info</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </nav>
+            <div class="user-section">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=1a1b4b&color=fff" alt="User" class="avatar">
+            </div>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Predict customer churn with high-precision machine learning.</h1>
+                <p>Empower your retention strategy with real-time AI insights. Input customer data below to see churn probability instantly and receive actionable recommendations.</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary">Start New Prediction</button>
+                    <button class="btn btn-secondary">View Tutorials</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- Decorative element or image placeholder -->
+                <canvas id="hero-canvas"></canvas>
+            </div>
+        </section>
+
+        <main class="form-container">
+            <!-- Demographics -->
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="users"></i>
+                    <span>Demographics</span>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <div class="toggle-group" id="gender-toggle">
+                            <button class="toggle-btn active" data-value="Male">Male</button>
+                            <button class="toggle-btn" data-value="Female">Female</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Senior Citizen</label>
+                        <div class="switch-container">
+                            <span style="font-size: 0.75rem; font-weight: 600;">Yes</span>
+                            <label class="switch">
+                                <input type="checkbox" id="senior-citizen">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Partner Status</label>
+                        <div class="switch-container">
+                            <span style="font-size: 0.75rem; font-weight: 600;">Active</span>
+                            <label class="switch">
+                                <input type="checkbox" id="partner-status" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dependents</label>
+                        <div class="switch-container">
+                            <span style="font-size: 0.75rem; font-weight: 600;">Yes</span>
+                            <label class="switch">
+                                <input type="checkbox" id="dependents">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services -->
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="cog"></i>
+                    <span>Services</span>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Internet Service</label>
+                        <select id="internet-service">
+                            <option value="Fiber optic">Fiber Optic</option>
+                            <option value="DSL">DSL</option>
+                            <option value="No">None</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Service</label>
+                        <select id="phone-service">
+                            <option value="Multiple lines">Multiple Lines</option>
+                            <option value="Single line">Single Line</option>
+                            <option value="No">None</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="service-icons">
+                    <div class="service-btn active" data-service="security">
+                        <i data-lucide="shield"></i>
+                        <span>Security</span>
+                    </div>
+                    <div class="service-btn" data-service="backup">
+                        <i data-lucide="cloud"></i>
+                        <span>Backup</span>
+                    </div>
+                    <div class="service-btn active" data-service="streaming">
+                        <i data-lucide="monitor"></i>
+                        <span>Streaming</span>
+                    </div>
+                    <div class="service-btn" data-service="support">
+                        <i data-lucide="headphones"></i>
+                        <span>Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account & Billing -->
+            <div class="card">
+                <div class="card-header">
+                    <i data-lucide="credit-card"></i>
+                    <span>Account & Billing</span>
+                </div>
+                <div class="range-container">
+                    <div class="range-header">
+                        <label>Tenure (Months)</label>
+                        <span class="range-val" id="tenure-val">24 Mo</span>
+                    </div>
+                    <input type="range" id="tenure-slider" min="0" max="72" value="24">
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Contract Type</label>
+                        <select id="contract-type">
+                            <option value="Month-to-month">Month-to-month</option>
+                            <option value="One year">One year</option>
+                            <option value="Two year">Two year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <select id="payment-method">
+                            <option value="Electronic check">Electronic check</option>
+                            <option value="Mailed check">Mailed check</option>
+                            <option value="Bank transfer">Bank transfer</option>
+                            <option value="Credit card">Credit card</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Monthly Charges</label>
+                        <input type="number" id="monthly-charges" value="70.99" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Charges (Est.)</label>
+                        <input type="number" id="total-charges" value="1910.76" step="0.01">
+                    </div>
+                </div>
+                <button class="generate-btn" id="predict-btn">GENERATE PREDICTION</button>
+            </div>
+        </main>
+
+        <aside class="result-sidebar">
+            <div class="result-card" id="result-placeholder">
+                <div style="margin: auto; color: var(--text-muted);">
+                    <i data-lucide="activity" style="width: 48px; height: 48px; margin-bottom: 1rem;"></i>
+                    <p>Enter data and click Generate to see insights.</p>
+                </div>
+            </div>
+            
+            <div class="result-card" id="result-display" style="display: none;">
+                <span class="result-tag">PREDICTION GENERATED</span>
+                <h2 class="result-status" id="churn-status">CHURN LIKELY</h2>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem;">Based on current customer profile and historical behavioral data.</p>
+                
+                <div class="chart-container">
+                    <svg class="donut" viewBox="0 0 100 100">
+                        <circle class="donut-ring" cx="50" cy="50" r="40"></circle>
+                        <circle class="donut-segment" id="donut-segment" cx="50" cy="50" r="40"></circle>
+                    </svg>
+                    <div class="donut-center">
+                        <div class="percent-num" id="prob-val">85%</div>
+                        <div class="risk-label">Risk Score</div>
+                    </div>
+                </div>
+
+                <div class="drivers-list" id="drivers-container">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                        <i data-lucide="bar-chart-3" style="width: 14px; color: var(--accent-indigo);"></i>
+                        <span style="font-size: 0.8rem; font-weight: 700;">Key Drivers</span>
+                    </div>
+                    <!-- Drivers will be injected here -->
+                </div>
+
+                <div class="insight-box">
+                    <div class="insight-icon"><i data-lucide="lightbulb" style="width: 16px;"></i> <span style="font-size: 0.7rem; font-weight: 700; margin-left: 0.5rem;">ACTIONABLE INSIGHT</span></div>
+                    <p id="insight-text">Customer is highly sensitive to contract type. Offer a 15% discount for switching to a Two-year contract to improve retention probability by up to 40%.</p>
+                </div>
+            </div>
+        </aside>
+
+        <footer>
+            <div>© 2024 ChurnGuard AI. Enterprise Prediction Engine.</div>
+            <div>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Security</a>
+                <a href="#">API Docs</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
