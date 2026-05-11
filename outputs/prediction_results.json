@@ -1,0 +1,6 @@
+{
+    "test_size": 0.22,
+    "total_records": 2277,
+    "wrong_predictions": 343,
+    "accuracy": 84.93631971892842
+}
