@@ -1,0 +1,22 @@
+{
+    "silhouette_score": 0.7907522854916321,
+    "num_clusters": 3,
+    "num_noise_points": 0,
+    "crosstab": {
+        "Established": {
+            "Established": 727,
+            "Loyalists": 775,
+            "Short Term": 124
+        },
+        "Loyalists": {
+            "Established": 364,
+            "Loyalists": 1295,
+            "Short Term": 68
+        },
+        "Short Term": {
+            "Established": 2665,
+            "Loyalists": 492,
+            "Short Term": 3838
+        }
+    }
+}
