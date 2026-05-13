@@ -190,7 +190,10 @@
             
             <div class="result-card" id="result-display" style="display: none;">
                 <span class="result-tag">PREDICTION GENERATED</span>
-                <h2 class="result-status" id="churn-status">CHURN LIKELY</h2>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                    <h2 class="result-status" id="churn-status" style="margin-bottom: 0;">CHURN LIKELY</h2>
+                    <div id="segment-badge" class="segment-badge">SHORT TERM</div>
+                </div>
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2rem;">Based on current customer profile and historical behavioral data.</p>
                 
                 <div class="chart-container">
@@ -224,7 +227,6 @@
             <div>
                 <a href="#">Privacy Policy</a>
                 <a href="#">Security</a>
-                <a href="#">API Docs</a>
             </div>
         </footer>
     </div>

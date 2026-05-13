@@ -47,7 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 contract: document.getElementById('contract-type').value,
                 payment: document.getElementById('payment-method').value,
                 monthly: document.getElementById('monthly-charges').value,
-                total: document.getElementById('total-charges').value
+                total: document.getElementById('total-charges').value,
+                // Service features
+                security: document.querySelector('[data-service="security"]').classList.contains('active'),
+                backup: document.querySelector('[data-service="backup"]').classList.contains('active'),
+                streaming: document.querySelector('[data-service="streaming"]').classList.contains('active'),
+                support: document.querySelector('[data-service="support"]').classList.contains('active')
             };
 
             const response = await fetch('/predict', {
@@ -75,6 +80,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const churnStatus = document.getElementById('churn-status');
         churnStatus.textContent = data.status;
         churnStatus.style.color = data.status === 'CHURN LIKELY' ? '#ef4444' : '#2ecc71';
+
+        // Update Segment
+        const segmentBadge = document.getElementById('segment-badge');
+        segmentBadge.textContent = data.segment.toUpperCase();
+        
+        // Color segment badge based on value
+        if (data.segment.toLowerCase() === 'loyalists') {
+            segmentBadge.style.background = '#dcfce7';
+            segmentBadge.style.color = '#15803d';
+            segmentBadge.style.borderColor = '#bbf7d0';
+        } else if (data.segment.toLowerCase() === 'established') {
+            segmentBadge.style.background = '#fef9c3';
+            segmentBadge.style.color = '#a16207';
+            segmentBadge.style.borderColor = '#fef08a';
+        } else {
+            segmentBadge.style.background = '#e0f2fe';
+            segmentBadge.style.color = '#0369a1';
+            segmentBadge.style.borderColor = '#bae6fd';
+        }
 
         // Update Donut
         const probVal = document.getElementById('prob-val');
